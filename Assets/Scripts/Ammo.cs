@@ -14,9 +14,11 @@ public class Ammo : MonoBehaviour{
     }
 
     private void Update(){
+        /*
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("PickedUp")){
             Destroy(this.gameObject);
         }
+        */
 
     }
 

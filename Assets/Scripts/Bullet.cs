@@ -34,6 +34,12 @@ public class Bullet : MonoBehaviour
     }
      private void OnCollisionEnter2D(Collision2D other){
         if(other.collider.gameObject.layer == LayerMask.NameToLayer("Ground")){
+            if(other.gameObject.tag == "Block"){
+                Block hitBlock = other.gameObject.GetComponent<Block>();
+                if(hitBlock.isDestructable){
+                    hitBlock.Damage(bulletDamage);
+                }
+            }
             Burst();
         }
     }

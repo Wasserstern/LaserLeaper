@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
 
 
     // States
+    public bool infiniteAmmo;
     [SerializeField]
     bool holdingShoot;
     [SerializeField]
@@ -100,7 +101,9 @@ public class Player : MonoBehaviour
 
                     rgbd.AddForce(-shootDirection * shotForce, ForceMode2D.Impulse);
                     
-                    currentAmmunition--;
+                    if(!infiniteAmmo){
+                        currentAmmunition--;
+                    }
                 }
             }
             if(isGrounded){
