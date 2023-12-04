@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
     
     Collider2D col;
     Rigidbody2D rgbd;
-
+    AllManager allmng;
     Camera mainCamera;
+    public float camOffsetY;
     public GameObject bulletPrefab;
     public Transform shootDirector;
 
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
     Vector2 currentDirectorPosition;
     void Start()
     {
+        allmng = GameObject.Find("AllManager").GetComponent<AllManager>();
         rgbd = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -63,7 +65,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10f);
+        if(!allmng.camIsScrolling){
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y +camOffsetY, -10f);
+        }
         GetInput();
         // Check ground
         RaycastHit2D groundHit = Physics2D.Raycast(transform.position, (new Vector2(transform.position.x, transform.position.y -1) - (Vector2)transform.position).normalized, groundCheckDistance, LayerMask.GetMask("Ground"));
@@ -154,6 +158,15 @@ public class Player : MonoBehaviour
                 currentAmmunition += other.gameObject.GetComponent<Ammo>().ammo;
             }
         }
+        else if(other.gameObject.layer == LayerMask.NameToLayer("Death")){
+            StartCoroutine(Death());
+        }
+    }
+
+    public IEnumerator Death(){
+        // TODO: Implement Death animation / Show restart screen / Show stats / etc...
+        Destroy(this.gameObject);
+        yield return new WaitForSeconds(1f);
     }
 
    
