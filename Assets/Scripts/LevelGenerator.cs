@@ -125,21 +125,22 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
                 currentPosition = new Vector3Int(Random.Range(startPosition.x, startPosition.x + blockWidth), currentPosition.y);
+                int stairY = currentPosition.y;
                 for(int k = 0; k < blockHeightPerGeneration / stairFlightCount; k++){
                     Vector2 startLine;
                     if(lastEndLine != default){
                         startLine = new Vector2(lastEndLine.x, lastEndLine.y);
                     }
                     else{
-                        startLine = new Vector2(Random.Range(startPosition.x, startPosition.x + blockWidth), currentPosition.y);
+                        startLine = new Vector2(Random.Range(startPosition.x, startPosition.x + blockWidth), stairY);
                     }
 
                     Vector2 endLine;
                     if(k % 2 == 0){
-                        endLine = new Vector2(startPosition.x, currentPosition.y + blockHeightPerGeneration / stairFlightCount);
+                        endLine = new Vector2(startPosition.x, stairY + blockHeightPerGeneration / stairFlightCount);
                     }
                     else{
-                        endLine = new Vector2(startPosition.x + blockWidth, currentPosition.y + blockHeightPerGeneration / stairFlightCount);
+                        endLine = new Vector2(startPosition.x + blockWidth, stairY + blockHeightPerGeneration / stairFlightCount);
                     }
                     Vector2 lineDirection = (endLine - startLine).normalized;
                     for(int i = 0; i <= Vector2.Distance(endLine, startLine); i++){
@@ -150,10 +151,10 @@ public class LevelGenerator : MonoBehaviour
                         }
                     }
                     lastEndLine = endLine;
-
+                    stairY += blockHeightPerGeneration / stairFlightCount;
 
                 }
-                    currentPosition = new Vector3Int(startPosition.x, currentPosition.y + blockHeightPerGeneration +1);
+                    currentPosition = new Vector3Int(startPosition.x, stairY);
 
                 
                 break;

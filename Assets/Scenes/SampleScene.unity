@@ -30216,7 +30216,7 @@ MonoBehaviour:
   blockWidth: 10
   shockBlockChance: 1
   currentLevelMode: 2
-  activeLevelModes: 000000000100000002000000
+  activeLevelModes: 02000000
   groundTiles: {fileID: 404745900}
   shockTiles: {fileID: 1097790780}
   groundTile: {fileID: 11400000, guid: 67c152a2047679343a14d293058ece2d, type: 2}
